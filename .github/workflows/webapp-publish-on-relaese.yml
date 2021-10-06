@@ -26,7 +26,6 @@ jobs:
         run: doctl registry login --expiry-seconds 600
       - name: Tag image 
         run:
-          docker tag mre/frontend \
-          registry.digitalocean.com/microrealestate-vi/microrealestate/mre-frontend:${{github.event.inputs.version }}
+          docker tag mre/frontend registry.digitalocean.com/microrealestate-vi/mre:${{github.event.inputs.version }}
       - name: Push image to DO Container Registry 
-        run: docker push registry.digitalocean.com/microrealestate-vi/microrealestate/mre-frontend:${{ github.event.inputs.version }}
+        run: docker push registry.digitalocean.com/microrealestate-vi/mre:${{ github.event.inputs.version }}
