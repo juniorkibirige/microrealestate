@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Checkout the repo 
         uses: actions/checkout@v2
+        with:
+          submodules: 'true'
       - name: Build image 
         run: sudo ./mre build
       - name: Install doctl 
