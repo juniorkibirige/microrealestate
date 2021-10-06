@@ -27,6 +27,6 @@ jobs:
       - name: Tag image 
         run:
           docker tag mre/frontend \
-          registry.digitalocean.com/microrealestate-vi/mre-frontend:${{github.event.inputs.version }}
+          registry.digitalocean.com/microrealestate-vi/mre-frontend-${{github.event.inputs.version }}
       - name: Push image to DO Container Registry 
-        run: docker push registry.digitalocean.com/microrealestate-vi/mre-frontend:${{ github.event.inputs.version }}
+        run: docker push registry.digitalocean.com/microrealestate-vi/mre-frontend-${{ github.event.inputs.version }}
