@@ -21,7 +21,7 @@ jobs:
         env:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
         with:
-          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+          token: '58a6a72a5dd977db4b128484a0b9848f58538848c3e64ae3873afb8801aeb7ea'
       - name: Log in to DO Container Registry 
         run: doctl registry login --expiry-seconds 600
       - name: Tag image 
