@@ -1,4 +1,4 @@
-name: Build and publish manually
+name: Build and publish mre
 on:
   workflow_dispatch:
     inputs:
@@ -24,8 +24,58 @@ jobs:
           token: '58a6a72a5dd977db4b128484a0b9848f58538848c3e64ae3873afb8801aeb7ea'
       - name: Log in to DO Container Registry 
         run: doctl registry login --expiry-seconds 600
-      - name: Tag image 
+      - name: Tag frontend 
         run:
-          docker tag mre/frontend registry.digitalocean.com/microrealestate-vi/mre:${{github.event.inputs.version }}
-      - name: Push image to DO Container Registry 
-        run: docker push registry.digitalocean.com/microrealestate-vi/mre:${{ github.event.inputs.version }}
+          docker tag mre/frontend registry.digitalocean.com/microrealestate-vi/frontend:${{github.event.inputs.version }}
+      - name: Push frontend image to DO Container Registry 
+        run: docker push registry.digitalocean.com/microrealestate-vi/frontend:${{ github.event.inputs.version }}
+      - name: Tag authenticator 
+        run:
+          docker tag mre/authenticator registry.digitalocean.com/microrealestate-vi/authenticator:${{github.event.inputs.version }}
+      - name: Push authenticator image to DO Container Registry 
+        run: docker push registry.digitalocean.com/microrealestate-vi/authenticator:${{ github.event.inputs.version }}
+      - name: Tag api 
+        run:
+          docker tag mre/api registry.digitalocean.com/microrealestate-vi/api:${{github.event.inputs.version }}
+      - name: Push api image to DO Container Registry 
+        run: docker push registry.digitalocean.com/microrealestate-vi/api:${{ github.event.inputs.version }}
+      - name: Tag loca 
+        run:
+          docker tag mre/loca registry.digitalocean.com/microrealestate-vi/loca:${{github.event.inputs.version }}
+      - name: Push loca image to DO Container Registry 
+        run: docker push registry.digitalocean.com/microrealestate-vi/loca:${{ github.event.inputs.version }}
+      - name: Tag emailer 
+        run:
+          docker tag mre/emailer registry.digitalocean.com/microrealestate-vi/emailer:${{github.event.inputs.version }}
+      - name: Push emailer image to DO Container Registry 
+        run: docker push registry.digitalocean.com/microrealestate-vi/emailer:${{ github.event.inputs.version }}
+      - name: Tag pdfgenerator 
+        run:
+          docker tag mre/pdfgenerator registry.digitalocean.com/microrealestate-vi/pdfgenerator:${{github.event.inputs.version }}
+      - name: Push pdfgenerator image to DO Container Registry 
+        run: docker push registry.digitalocean.com/microrealestate-vi/pdfgenerator:${{ github.event.inputs.version }}
+      - name: Tag redis 
+        run:
+          docker tag mre/redis registry.digitalocean.com/microrealestate-vi/redis:${{github.event.inputs.version }}
+      - name: Push redis image to DO Container Registry 
+        run: docker push registry.digitalocean.com/microrealestate-vi/redis:${{ github.event.inputs.version }}
+      - name: Tag node 
+        run:
+          docker tag mre/14-slim registry.digitalocean.com/microrealestate-vi/14-slim:${{github.event.inputs.version }}
+      - name: Push node image to DO Container Registry 
+        run: docker push registry.digitalocean.com/microrealestate-vi/14-slim:${{ github.event.inputs.version }}
+      - name: Tag node 
+        run:
+          docker tag mre/14-stretch registry.digitalocean.com/microrealestate-vi/14-stretch:${{github.event.inputs.version }}
+      - name: Push node image to DO Container Registry 
+        run: docker push registry.digitalocean.com/microrealestate-vi/14-stretch:${{ github.event.inputs.version }}
+      - name: Tag mongo 
+        run:
+          docker tag mre/3.6 registry.digitalocean.com/microrealestate-vi/3,6:${{github.event.inputs.version }}
+      - name: Push mongo image to DO Container Registry 
+        run: docker push registry.digitalocean.com/microrealestate-vi/3.6:${{ github.event.inputs.version }}
+      - name: Tag nginx 
+        run:
+          docker tag mre/1.17 registry.digitalocean.com/microrealestate-vi/1.17:${{github.event.inputs.version }}
+      - name: Push nginx image to DO Container Registry 
+        run: docker push registry.digitalocean.com/microrealestate-vi/1.17:${{ github.event.inputs.version }}
