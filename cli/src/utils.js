@@ -16,6 +16,18 @@ const removeEndLineBreak = (log) => {
   return log.replace(/\s$/g, '');
 };
 
+const loadEnv = (wd, runMode) => {
+  dotenv.config(); // load .env config
+  const env = dotenv.config({
+    // complete environment variables with 'dev.env" or "prod.env"
+    path: path.resolve(
+      wd || process.cwd(),
+      runMode === 'prod' ? 'prod.env' : 'dev.env'
+    ),
+  });
+  dotenvExpand.expand(env); // expand env variables which reference env variable
+};
+
 const runCommand = async (cmd, parameters = [], options = {}, waitLog = '') => {
   let spinner;
   if (waitLog) {
@@ -71,16 +83,6 @@ const runCompose = async (
   commandOptions = { logErrorsDuringExecution: false },
   waitLog = ''
 ) => {
-  dotenv.config(); // load .env config
-  const env = dotenv.config({
-    // complete environment variables with 'dev.env" or "prod.env"
-    path: path.resolve(
-      composeOptions.wd || process.cwd(),
-      composeOptions.runMode === 'prod' ? 'prod.env' : 'dev.env'
-    ),
-  });
-  dotenvExpand(env); // expand env variables which reference env variable
-
   const prodComposeArgs = [
     '-f',
     'docker-compose.microservices.base.yml',
@@ -92,8 +94,11 @@ const runCompose = async (
     'docker-compose.microservices.base.yml',
     '-f',
     'docker-compose.microservices.dev.yml',
+    '-f',
+    'docker-compose.microservices.test.yml',
   ];
 
+  loadEnv(composeOptions.wd, composeOptions.runMode);
   await runCommand(
     'docker-compose',
     [
@@ -105,7 +110,18 @@ const runCompose = async (
   );
 };
 
+const computeUrl = (baseUrl) => {
+  const url = new URL(baseUrl);
+  return {
+    baseUrl: `${url.protocol}//${url.hostname}`,
+    basePath: url.pathname !== '/' ? url.pathname : '',
+    port: url.port,
+  };
+};
+
 module.exports = {
   generateRandomToken,
+  loadEnv,
   runCompose,
+  computeUrl,
 };

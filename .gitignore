@@ -1,5 +1,20 @@
-data
-cli/node_modules
+# Project directories and files
+node_modules
+tmp
+/data
 .env
 .vscode/ipch
-.vscode/settings.json
+deploy-*.sh
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# test coverage
+coverage
+
+# Rest client vscode plugin
+*.rest
+
+.yarn
